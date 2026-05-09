@@ -8,6 +8,7 @@ import {
   Filter, Star, Award, Layers, MoreVertical, RefreshCw
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+// import { Eye, TrendingUp, FileText, Anchor, RefreshCw, Clock, Brain} from "lucide-react";
 
 const COLORS = {
   bg: "#050816",
@@ -436,23 +437,31 @@ const DashboardPage = () => {
     { label: "Hooks Generated", value: "1,025", growth: "+19.3% this week", icon: Anchor, color: "#F97316", glow: "rgba(249,115,22,0.3)" },
   ];
 
+  const agents = [
+    { id: 1, name: "Scraper Agent",  desc: "Collecting viral content",  icon: RefreshCw, color: "#7C3AED", glow: "rgba(124,58,237,0.5)",  bg: "rgba(124,58,237,0.18)",  border: "rgba(124,58,237,0.5)"  },
+    { id: 2, name: "Analyzer Agent", desc: "Analyzing patterns",        icon: Brain,     color: "#2563EB", glow: "rgba(37,99,235,0.5)",   bg: "rgba(37,99,235,0.18)",   border: "rgba(37,99,235,0.5)"   },
+    { id: 3, name: "Script Agent",   desc: "Writing engaging scripts",  icon: FileText,  color: "#0891B2", glow: "rgba(8,145,178,0.5)",   bg: "rgba(8,145,178,0.18)",   border: "rgba(8,145,178,0.5)"   },
+    { id: 4, name: "Hook Agent",     desc: "Generating viral hooks",    icon: Anchor,    color: "#7C3AED", glow: "rgba(124,58,237,0.5)",  bg: "rgba(124,58,237,0.18)",  border: "rgba(124,58,237,0.5)"  },
+  ];
+
   const activities = [
-    { icon: Eye, color: "#8B5CF6", text: 'Analyzed new reel: "5 Habits That Changed My Life"', time: "2 minutes ago" },
-    { icon: FileText, color: "#06B6D4", text: "Generated script for: Fitness Motivation", time: "8 minutes ago" },
-    { icon: Anchor, color: "#EC4899", text: "Created 5 hooks for: Productivity Tips", time: "15 minutes ago" },
-    { icon: RefreshCw, color: "#F97316", text: "Scraped 50 new reels from Instagram", time: "20 minutes ago" },
+    { icon: Eye,       color: "#8B5CF6", text: 'Analyzed new reel: "5 Habits That Changed My Life"', time: "2 minutes ago" },
+    { icon: FileText,  color: "#06B6D4", text: "Generated script for: Fitness Motivation",            time: "8 minutes ago" },
+    { icon: Anchor,    color: "#EC4899", text: "Created 5 hooks for: Productivity Tips",              time: "15 minutes ago" },
+    { icon: RefreshCw, color: "#F97316", text: "Scraped 50 new reels from Instagram",                 time: "20 minutes ago" },
   ];
 
   const niches = [
-    { name: "Fitness", value: 42, color: "#06B6D4" },
+    { name: "Fitness",    value: 42, color: "#06B6D4" },
     { name: "Motivation", value: 28, color: "#8B5CF6" },
-    { name: "Business", value: 18, color: "#F97316" },
-    { name: "Education", value: 12, color: "#EC4899" },
+    { name: "Business",   value: 18, color: "#F97316" },
+    { name: "Education",  value: 12, color: "#EC4899" },
   ];
 
   return (
     <div className="page-enter" style={{ padding: "28px", overflowY: "auto", flex: 1 }}>
-      {/* Header */}
+
+      {/* ── Header ── */}
       <div style={{ marginBottom: 28 }}>
         <h1 className="heading" style={{ fontSize: 26, fontWeight: 800, color: "white", marginBottom: 4 }}>
           Welcome back, Manthan! 👋
@@ -460,7 +469,7 @@ const DashboardPage = () => {
         <p style={{ color: "#9CA3AF", fontSize: 14 }}>Your AI Social Media Manager</p>
       </div>
 
-      {/* Stats Grid */}
+      {/* ── Stats Grid ── */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 24 }}>
         {stats.map((s, i) => {
           const Icon = s.icon;
@@ -493,8 +502,106 @@ const DashboardPage = () => {
         })}
       </div>
 
-      {/* Bottom Row */}
+      {/* ── AI Agent Pipeline ── */}
+      <div style={{ ...glassCard, padding: "24px", marginBottom: 24 }}>
+        {/* Header */}
+        <div style={{ marginBottom: 28 }}>
+          <h2 className="heading" style={{ fontSize: 18, fontWeight: 700, color: "white", marginBottom: 4 }}>
+            AI Agent Pipeline
+          </h2>
+          <p style={{ color: "#6B7280", fontSize: 13 }}>4 agents working together</p>
+        </div>
+
+        {/* Agents Row */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr auto 1fr auto 1fr", alignItems: "center", gap: 0 }}>
+          {agents.map((agent, i) => {
+            const Icon = agent.icon;
+            return (
+              <>
+                {/* Agent Node */}
+                <div
+                  key={agent.id}
+                  className="agent-node"
+                  style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, padding: "8px 6px" }}
+                >
+                  {/* Icon circle */}
+                  <div style={{ position: "relative" }}>
+                    {/* Outer glow ring */}
+                    <div style={{
+                      position: "absolute", inset: -5, borderRadius: "50%",
+                      border: `1px solid ${agent.border}`,
+                      opacity: 0.4,
+                    }} />
+                    {/* Icon wrapper */}
+                    <div style={{
+                      width: 68, height: 68, borderRadius: "50%",
+                      background: agent.bg,
+                      border: `2px solid ${agent.border}`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      boxShadow: `0 0 28px ${agent.glow}, 0 0 10px ${agent.glow} inset`,
+                      position: "relative", zIndex: 1,
+                    }}>
+                      <Icon size={26} color={agent.color} />
+                    </div>
+                  </div>
+
+                  {/* Text */}
+                  <div style={{ textAlign: "center" }}>
+                    <div className="heading" style={{ fontSize: 13, fontWeight: 700, color: "white", marginBottom: 4 }}>
+                      {i + 1}. {agent.name}
+                    </div>
+                    <div style={{ fontSize: 11.5, color: "#6B7280", marginBottom: 10, lineHeight: 1.4 }}>
+                      {agent.desc}
+                    </div>
+                    {/* Running badge */}
+                    <div style={{
+                      display: "inline-flex", alignItems: "center", gap: 5,
+                      padding: "4px 11px", borderRadius: 20,
+                      background: "rgba(16,185,129,0.13)",
+                      border: "1px solid rgba(16,185,129,0.32)",
+                      fontSize: 11, fontWeight: 700, color: "#10B981",
+                    }}>
+                      <div style={{
+                        width: 6, height: 6, borderRadius: "50%", background: "#10B981",
+                        animation: "runningDot 1.5s ease-in-out infinite",
+                      }} />
+                      Running
+                    </div>
+                  </div>
+                </div>
+
+                {/* Arrow connector (skip after last agent) */}
+                {i < agents.length - 1 && (
+                  <div key={`arrow-${i}`} style={{
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    paddingBottom: 60, /* align with icon vertical center */
+                  }}>
+                    <svg width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path
+                        d="M0 9 H22 M16 2 L24 9 L16 16"
+                        stroke="url(#arrowGrad)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <defs>
+                        <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor={agents[i].color} stopOpacity="0.6" />
+                          <stop offset="100%" stopColor={agents[i + 1]?.color ?? agents[i].color} stopOpacity="0.9" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                )}
+              </>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── Bottom Row ── */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+
         {/* Recent Activity */}
         <div style={{ ...glassCard, padding: "20px" }}>
           <h3 className="heading" style={{ fontSize: 15, fontWeight: 700, color: "white", marginBottom: 16 }}>Recent Activity</h3>
@@ -557,10 +664,12 @@ const DashboardPage = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
 };
+
 
 // ─── Discover Page ─────────────────────────────────────────────────────────
 const DiscoverPage = () => {
